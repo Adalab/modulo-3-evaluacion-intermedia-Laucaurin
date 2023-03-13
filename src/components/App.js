@@ -7,6 +7,10 @@ function App() {
   const [friendsData, setFriendsData] = useState([]);
   const [searchQuote, setSearchQuote] = useState('');
   const [searchCharacter, setSearchCharacter] = useState('all');
+  const [newQuoteFriend, setNewQuoteFriend] = useState({
+    quote: '',
+    character: '',
+  });
 
   //Call to api
   useEffect(() => {
@@ -15,12 +19,25 @@ function App() {
     });
   }, []);
 
-  // collect input value quote & character
+  // collect input value quote / character / new quote
   const handleSearchQuote = (ev) => {
     setSearchQuote(ev.target.value)
   }
   const handleSearchCharacter = (ev) => {
     setSearchCharacter(ev.target.value)
+  }
+
+  const handleNewQuoteFriend = (ev) => {
+    setNewQuoteFriend({ ...newQuoteFriend, [ev.target.name]: ev.target.value })
+  }
+
+  //function to add new quote with click event & clean inputs 
+  const handleclickAdd = () => {
+    setFriendsData([...friendsData, newQuoteFriend])
+    setNewQuoteFriend({
+      quote: '',
+      character: '',
+    })
   }
 
   //Render list
@@ -51,7 +68,7 @@ function App() {
           <fieldset>
             <legend>Búsqueda</legend>
 
-            <label htmlFor="phrase">Filtrar por frase</label>
+            <label htmlFor="phrase-filter">Filtrar por frase</label>
             <input type="text" placeholder='Ej:Pivot! pivot!' id='phrase' name='phrase' value={searchQuote} onChange={handleSearchQuote} />
 
             <label htmlFor="character">Filtrar por personaje</label>
@@ -72,15 +89,15 @@ function App() {
           <fieldset>
             <legend>Añadir una nueva frase</legend>
 
-            <label htmlFor="phrase-add">Frase
-              <input type="text" name='phrase-add' id='phrase-add' placeholder='Ej:Pivot! pivot!' />
+            <label htmlFor="quote">Frase
+              <input type="text" name='quote' id='quote' placeholder='Ej:Pivot! pivot!' onChange={handleNewQuoteFriend} value={newQuoteFriend.quote} />
             </label>
 
-            <label htmlFor="character-add">Personaje
-              <input type="text" name='character-add' id='character-add' placeholder='Ej: Ross' />
+            <label htmlFor="character">Personaje
+              <input type="text" name='character' id='character' placeholder='Ej: Ross' onChange={handleNewQuoteFriend} value={newQuoteFriend.character} />
             </label>
 
-            <input type="button" name="button" id="button" value="Añadir una nueva frase" />
+            <input type="button" name="button" id="button" value="Añadir una nueva frase" onClick={handleclickAdd} />
 
           </fieldset>
         </form>
