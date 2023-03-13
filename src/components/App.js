@@ -1,7 +1,30 @@
 import '../styles/App.scss';
+import callToApi from '../services/api';
+import { useEffect, useState } from 'react';
 
 function App() {
+  //variables
+  const [friendsData, setFriendsData] = useState([]);
 
+  //Call to api
+  useEffect(() => {
+    callToApi().then((results) => {
+      setFriendsData(results);
+    });
+  }, []);
+
+  //Render list
+  const renderFriends = () => {
+    return friendsData
+      .map((eachFriend, i) => (
+        <li key={i}>
+          <p>{eachFriend.quote}</p>
+          <p>{eachFriend.character}</p>
+        </li>
+      ));
+  };
+
+  //On submit function form
   const handleOnSubmit = (ev) => {
     ev.preventDefault();
   }
@@ -29,7 +52,7 @@ function App() {
               <option value="Rachel">Rachel</option>
             </select>
             <h2>Resultados</h2>
-            <ul></ul>
+            <ul>{renderFriends()}</ul>
           </fieldset>
           <fieldset>
             <legend>Añadir una nueva frase</legend>
