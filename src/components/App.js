@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 function App() {
   //variables
   const [friendsData, setFriendsData] = useState([]);
+  const [searchQuote, setSearchQuote] = useState('');
+  const [searchCharacter, setSearchCharacter] = useState('all');
 
   //Call to api
   useEffect(() => {
@@ -13,9 +15,19 @@ function App() {
     });
   }, []);
 
+  // collect input value quote & character
+  const handleSearchQuote = (ev) => {
+    setSearchQuote(ev.target.value)
+  }
+  const handleSearchCharacter = (ev) => {
+    setSearchCharacter(ev.target.value)
+  }
+
   //Render list
   const renderFriends = () => {
     return friendsData
+      .filter((eachFriend) => eachFriend.quote.toLocaleLowerCase().includes(searchQuote.toLocaleLowerCase()))
+      .filter((eachFriend) => eachFriend.character.toLocaleLowerCase().includes(searchCharacter.toLocaleLowerCase()) || searchCharacter === 'all')
       .map((eachFriend, i) => (
         <li key={i}>
           <p>{eachFriend.quote}</p>
@@ -38,11 +50,12 @@ function App() {
         <form className='form' action="" onSubmit={handleOnSubmit}>
           <fieldset>
             <legend>Búsqueda</legend>
+
             <label htmlFor="phrase">Filtrar por frase</label>
-            <input type="text" placeholder='Ej:Pivot! pivot!' id='phrase' name='phrase' />
+            <input type="text" placeholder='Ej:Pivot! pivot!' id='phrase' name='phrase' value={searchQuote} onChange={handleSearchQuote} />
 
             <label htmlFor="character">Filtrar por personaje</label>
-            <select name="character" id="character">
+            <select name="character" id="character" value={searchCharacter} onChange={handleSearchCharacter}>
               <option value="all">Todos</option>
               <option value="Ross">Ross</option>
               <option value="Mónica">Mónica</option>
@@ -51,9 +64,11 @@ function App() {
               <option value="Chandler">Chandler</option>
               <option value="Rachel">Rachel</option>
             </select>
+
             <h2>Resultados</h2>
             <ul>{renderFriends()}</ul>
           </fieldset>
+
           <fieldset>
             <legend>Añadir una nueva frase</legend>
 
