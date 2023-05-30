@@ -1,47 +1,96 @@
-
-// font-family: 'Montserrat', sans-serif;
+@import './mediaqueries.scss';
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
+  // font-family: 'Montserrat', sans-serif;
+  font-family:monospace;
 }
 
-.body {
-  padding: 30px 50px;
+.header {
+text-align: center;
+  &__img {
+    width:80%;
+    max-width: 400px;
+    margin: 55px 0 40px 0;
+    @include tablet {
+    margin: 50px 0;
+    }
+    @include desktop {
+      margin: 65px 0;
+    }
+  }
 }
 
-.title {
-  color: rgb(13, 73, 73);
-  text-align: center;
-  margin: 30px;
-}
-
-.results--title {
-  font-size: 18px;
-  padding-top: 15px;
-  color: rgb(73, 13, 31);
+.results{
+padding: 20px;
+font-size: 18px;
+  &--title {
+    text-align: center;
+    font-size: 20px;
+    padding-bottom: 20px;
+    color: rgb(73, 13, 31);
+  }
+  @include tablet {
+    padding: 40px 60px;  
+  }
+  @include desktop {
+    font-size: 20px;
+  }
 }
 
 .form {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  padding-top: 20px;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @include tablet {
+    flex-direction: row;
+    justify-content: center;
+  }
+  &--select{
+    font-size: 16px;
+    padding: 5px;
+    
+    @include desktop {
+    font-size: 18px;
+    }
+  }
   &--legend{
+    text-align: center;
     font-size: 20px;
     color: rgb(73, 13, 31);
+    @include desktop {
+      font-size: 22px;
+      }
   }
   &--wrap__filter{
+    width: 90%;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    border: solid 2px rgb(73, 13, 31);
     border-radius: 5px;
-    background-color: rgba(13, 73, 73, 0.479); ;
     padding: 25px;
     margin-bottom: 20px;
+
+    @include tablet {
+      margin-bottom: 0;
+      height: 250px;
+    }
+    @include desktop {
+      width: 400px;
+    }
   }
+
+input{
+  padding: 5px;
+  font-size: 16px;
+  @include desktop {
+    font-size: 18px;
+    }
+}
+
   &--wrap__add {
     border: solid 2px rgb(73, 13, 31);
     border-radius: 5px;
@@ -49,27 +98,32 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    @include tablet {
+      height: 250px;
+      }
+    @include desktop {
+      width: 400px;
+    }
   }
-  &--select {
-    width: 200px;
-  }
-
 }
+
 .label {
   padding-right: 20px;
-  font-size: 14px;
+  font-size: 18px;
+  @include desktop {
+  font-size: 20px;
+  }
 }
 
 .fieldset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-style: none;
-}
-
-.fieldset {
   padding: 20px;
 }
 
 .list{
-  padding-top: 15px;
   list-style: none;
   &--li{
     margin-bottom: 20px;
@@ -78,11 +132,16 @@
     border-radius: 5px;
   }
   &--character{
-    font-size: 14px;
+    font-size: 16px;
     color: rgb(13, 73, 73);
+    @include desktop {
+    font-size: 18px;
+    }
   }
 }
 
 .btn {
   margin-top: 10px;
+  background-color: transparent;
+  color: rgb(13, 73, 73);
 }

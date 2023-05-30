@@ -1,6 +1,7 @@
 import '../styles/App.scss';
 import callToApi from '../services/api';
 import { useEffect, useState } from 'react';
+import logo from '../images/logo_friends.png'
 
 function App() {
   //variables
@@ -59,8 +60,8 @@ function App() {
 
   return (
     <div className='body'>
-      <header>
-        <h1 className='title'>Frases de Friends</h1>
+      <header className='header'>
+        <img className='header__img' src={logo} alt='title_friends'></img>
       </header>
       <main>
         <form className='form' action="" onSubmit={handleOnSubmit}>
@@ -80,8 +81,6 @@ function App() {
               <label className='label' htmlFor="phrase-filter">Filtrar por frase</label>
               <input type="text" placeholder='Ej:Pivot! pivot!' id='phrase' name='phrase' value={searchQuote} onChange={handleSearchQuote} />
             </div>
-            <h3 className='results--title'>Resultados</h3>
-            <ul className='list'>{renderFriends()}</ul>
           </fieldset>
           <fieldset className='fieldset--add fieldset'>
             <legend className='form--legend'>Añadir una nueva frase</legend>
@@ -90,10 +89,14 @@ function App() {
               <input type="text" name='quote' id='quote' placeholder='Ej:Pivot! pivot!' onChange={handleNewQuoteFriend} value={newQuoteFriend.quote} />
               <label className='label' htmlFor="character">Personaje</label>
               <input type="text" name='character' id='character' placeholder='Ej: Ross' onChange={handleNewQuoteFriend} value={newQuoteFriend.character} />
-              <input className='btn' type="button" name="button" id="button" value="Añadir una nueva frase" onClick={handleclickAdd} />
+              <input className='btn' type="button" name="button" id="button" value="Añadir" onClick={handleclickAdd} />
             </div>
           </fieldset>
         </form>
+        <section className='results'>
+          <h3 className='results--title'>Resultados</h3>
+          <ul className='list'>{renderFriends()}</ul>
+        </section>
       </main>
     </div>
   );
